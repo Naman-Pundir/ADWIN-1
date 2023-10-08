@@ -1,4 +1,4 @@
-from time import clock
+from datetime import datetime
 
 import numpy as np
 
@@ -22,9 +22,9 @@ def prequential(X, y, clf, n_train=1):
     clf.fit(X_init, y_init)
 
     for i in range(0, row_num - n_train):
-        start_time = clock()
+        start_time = datetime.now()
         y_pre[i] = clf.predict(X_train[i, :].reshape(1, -1))
         clf.partial_fit(X_train[i, :].reshape(1, -1), y_train[i].reshape(1, -1).ravel())
-        time[i] = clock() - start_time
+        time[i] = (datetime.now() - start_time).total_seconds()
 
     return y_pre, time
